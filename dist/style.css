@@ -1,0 +1,33 @@
+body {
+    background: #333;
+    font-family: 'PT Mono', monospace;
+    overflow: hidden;
+}
+
+.letter {
+    font-size: 30px;
+    line-height: 27px;
+    width: 16px;
+}
+
+.letterRow {
+    height: 27px;
+    overflow: visible;
+    display: flex;
+    width: 100%;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+#root {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+}
