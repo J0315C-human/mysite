@@ -94,7 +94,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./module */ \"./src/module.ts\");\n\r\nvar container = document.getElementById('root');\r\nconsole.dir(container);\r\nvar cw = container.clientWidth;\r\nvar ch = container.clientHeight;\r\nconsole.log(cw, ch);\r\nvar letterWidth = 16;\r\nvar letterHeight = 27;\r\nvar nCols = Math.floor(cw / letterWidth);\r\nvar nRows = Math.floor(ch / letterHeight);\r\nfor (var row = 0; row < nRows; row++) {\r\n    for (var col = 0; col < nCols; row++, console.log(row)) {\r\n        Object(_module__WEBPACK_IMPORTED_MODULE_0__[\"addLetter\"])(String.fromCharCode(col), '#FFF', container);\r\n    }\r\n}\r\n\n\n//# sourceURL=webpack:///./src/index.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./module */ \"./src/module.ts\");\n\r\nvar container = document.getElementById('root');\r\nvar letters = [];\r\nvar letterWidth = 16;\r\nvar letterHeight = 27;\r\nvar globals = {\r\n    nCols: 0,\r\n    nRows: 0,\r\n};\r\nvar getColor = function (row, col) {\r\n    var angle = Math.floor((col / globals.nCols) * 360);\r\n    var lightness = Math.floor((row / globals.nRows) * 100);\r\n    return \"hsl(\" + angle + \",100%, \" + lightness + \"%)\";\r\n};\r\nvar setGlobals = function () {\r\n    globals.nCols = Math.floor(container.clientWidth / letterWidth);\r\n    globals.nRows = Math.floor(container.clientHeight / letterHeight);\r\n};\r\nvar fillLetters = function () {\r\n    container.innerHTML = '';\r\n    for (var _i = 0, letters_1 = letters; _i < letters_1.length; _i++) {\r\n        var i = letters_1[_i];\r\n        letters.pop();\r\n    }\r\n    for (var row = 0; row < globals.nRows; row++) {\r\n        var thisRow = [];\r\n        var rowElement = document.createElement('div');\r\n        rowElement.classList.add('letterRow');\r\n        for (var col = 0; col < globals.nCols; col++) {\r\n            var ltr = Object(_module__WEBPACK_IMPORTED_MODULE_0__[\"getLetter\"])(String.fromCharCode(col + 65), getColor(row, col));\r\n            thisRow.push({ el: ltr });\r\n            rowElement.appendChild(ltr);\r\n        }\r\n        letters.push(thisRow);\r\n        container.appendChild(rowElement);\r\n    }\r\n};\r\nvar update = function () {\r\n    var prevNCols = globals.nCols;\r\n    var prevNRows = globals.nRows;\r\n    setGlobals();\r\n    if (globals.nCols === prevNCols && globals.nRows === prevNRows) {\r\n        return;\r\n    }\r\n    fillLetters();\r\n};\r\nupdate();\r\nwindow.onresize = update;\r\n\n\n//# sourceURL=webpack:///./src/index.ts?");
 
 /***/ }),
 
@@ -102,11 +102,11 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mod
 /*!***********************!*\
   !*** ./src/module.ts ***!
   \***********************/
-/*! exports provided: addLetter */
+/*! exports provided: getLetter, getRow */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"addLetter\", function() { return addLetter; });\nvar letters = [];\r\nvar addLetter = function (letter, color, parent) {\r\n    var d = document.createElement('div');\r\n    d.classList.add('letter');\r\n    d.textContent = letter;\r\n    d.style.color = color;\r\n    letters.push({ el: d });\r\n    parent.appendChild(d);\r\n};\r\n\n\n//# sourceURL=webpack:///./src/module.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getLetter\", function() { return getLetter; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getRow\", function() { return getRow; });\nvar getLetter = function (letter, color) {\r\n    var d = document.createElement('div');\r\n    d.classList.add('letter');\r\n    d.textContent = letter;\r\n    d.style.color = color;\r\n    return d;\r\n};\r\nvar getRow = function () {\r\n    var r = document.createElement('div');\r\n    r.classList.add('letterRow');\r\n    return r;\r\n};\r\n\n\n//# sourceURL=webpack:///./src/module.ts?");
 
 /***/ })
 
